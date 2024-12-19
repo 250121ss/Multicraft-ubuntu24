@@ -1,0 +1,63 @@
+# Update System
+
+sudo apt update && sudo apt upgrade
+
+# Install LAMP Server
+
+sudo apt install tasksel
+sudo tasksel install lamp-server
+
+# Install PHP, SQLite, Java, and Related Packages
+
+sudo apt install -y zip php-zip php php-sqlite3 php-gd default-jre
+
+sudo apt-get install -y php8.3-cli php8.3-common php8.3-mysql php8.3-zip php8.3-gd php8.3-mbstring php8.3-curl php8.3-xml php8.3-bcmath php8.3-redis php8.3-fpm php8.3-intl php8.3-zip php8.3-soap php8.3-opcache
+
+# Configure Apache
+# Edit /etc/apache2/apache2.conf to set AllowOverride All under <Directory /var/www/>
+
+sudo nano /etc/apache2/apache2.conf
+
+# Change AllowOverride None to AllowOverride All
+
+sudo service apache2 reload
+
+# Install Multicraft
+
+wget http://www.multicraft.org/download/linux64 -O multicraft.tar.gz
+tar -xzf multicraft*.tar.gz
+cd multicraft/
+./setup.sh
+
+# During Setup, set frontend location to /var/www/html/multicraft and disable the built-in FTP server
+
+# Configure Multicraft
+
+cp /var/www/html/multicraft/protected/config/config.php.dist /var/www/html/multicraft/protected/config/config.php
+
+chown www-data:www-data /var/www/html/multicraft/protected/config/config.php
+
+# Access Multicraft Web Installer
+
+# Open browser and go to http://<your-ip>/multicraft
+
+
+# Follow the installation steps, including initializing the database and running the Multicraft daemon
+
+/home/minecraft/multicraft/bin/multicraft -v start
+
+# After setup, delete the installer
+
+rm /var/www/html/multicraft/install.php
+
+# Install Minecraft Server
+
+cd /home/minecraft/multicraft/jar/
+
+wget https://launcher.mojang.com/v1/objects/0a269b5f2c5b93b1712d0f5dc43b6182b9ab254e/server.jar
+
+# Create and Manage Minecraft Server
+
+# Go to http://<your-ip>/multicraft, accept the EULA, and create the server
+
+# Set the JAR file to server.jar and start the server
